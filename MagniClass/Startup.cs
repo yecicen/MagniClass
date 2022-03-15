@@ -76,6 +76,7 @@ namespace MagniClass
             app.UseAuthentication();
             app.UseIdentityServer();
             app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -96,6 +97,9 @@ namespace MagniClass
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
+
+            DataInitiliazier.Seed(app);
         }
+
     }
 }

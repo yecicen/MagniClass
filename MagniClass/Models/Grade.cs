@@ -9,7 +9,7 @@ namespace MagniClass.Models
     public class Grade
     {
         [Key]
-        public IKey Id { get; set; }
+        public int Id { get; set; }
         public double Score { get; set; }
 
         public int StudentID { get; set; }
