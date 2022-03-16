@@ -4,16 +4,14 @@ using MagniClass.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace MagniClass.Data.Migrations
+namespace MagniClass.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220314233738_test3")]
-    partial class test3
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -186,6 +184,9 @@ namespace MagniClass.Data.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<string>("UserRole")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
@@ -216,6 +217,24 @@ namespace MagniClass.Data.Migrations
                     b.ToTable("Courses");
                 });
 
+            modelBuilder.Entity("MagniClass.Models.CourseSubjects", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SubjectId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CoursesSubjects");
+                });
+
             modelBuilder.Entity("MagniClass.Models.Grade", b =>
                 {
                     b.Property<int>("Id")
@@ -244,22 +263,33 @@ namespace MagniClass.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CourseId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TeacherId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("TeacherID")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CourseId");
-
-                    b.HasIndex("TeacherId");
-
                     b.ToTable("Subjects");
+                });
+
+            modelBuilder.Entity("MagniClass.Models.SubjectStudents", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SubjectId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SubjectStudents");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -404,11 +434,6 @@ namespace MagniClass.Data.Migrations
                     b.Property<string>("RegistrationNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("SubjectId")
-                        .HasColumnType("int");
-
-                    b.HasIndex("SubjectId");
-
                     b.HasDiscriminator().HasValue("Student");
                 });
 
@@ -420,19 +445,6 @@ namespace MagniClass.Data.Migrations
                         .HasColumnType("float");
 
                     b.HasDiscriminator().HasValue("Teacher");
-                });
-
-            modelBuilder.Entity("MagniClass.Models.Subject", b =>
-                {
-                    b.HasOne("MagniClass.Models.Course", null)
-                        .WithMany("Subjects")
-                        .HasForeignKey("CourseId");
-
-                    b.HasOne("MagniClass.Models.Teacher", "Teacher")
-                        .WithMany()
-                        .HasForeignKey("TeacherId");
-
-                    b.Navigation("Teacher");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -484,23 +496,6 @@ namespace MagniClass.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("MagniClass.Models.Student", b =>
-                {
-                    b.HasOne("MagniClass.Models.Subject", null)
-                        .WithMany("Students")
-                        .HasForeignKey("SubjectId");
-                });
-
-            modelBuilder.Entity("MagniClass.Models.Course", b =>
-                {
-                    b.Navigation("Subjects");
-                });
-
-            modelBuilder.Entity("MagniClass.Models.Subject", b =>
-                {
-                    b.Navigation("Students");
                 });
 #pragma warning restore 612, 618
         }

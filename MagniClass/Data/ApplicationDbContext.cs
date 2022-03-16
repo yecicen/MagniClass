@@ -20,6 +20,10 @@ namespace MagniClass.Data
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Subject> Subjects { get; set; }
 
+        public DbSet<CourseSubjects> CoursesSubjects { get; set; }
+
+        public DbSet<SubjectStudents> SubjectStudents { get; set; }
+
         public ApplicationDbContext(
             DbContextOptions options,
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
