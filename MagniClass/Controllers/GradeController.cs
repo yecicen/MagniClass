@@ -7,8 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace MagniClass.Controllers
 {
     [Route("api/[controller]")]
@@ -23,21 +21,18 @@ namespace MagniClass.Controllers
             _context = context;
         }
 
-        // GET: api/<CourseController>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Grade>>> GetAsync()
         {
             return await _context.Grades.ToListAsync();
         }
 
-        // GET api/<CourseController>/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Grade>> Get(int id )
         {
             return await _context.Grades.FindAsync(id);
         }
 
-        // POST api/<CourseController>
         [HttpPost]
         public async void Post([FromBody] Grade grade)
         {
@@ -45,7 +40,6 @@ namespace MagniClass.Controllers
             await _context.SaveChangesAsync();
         }
 
-        // PUT api/<CourseController>/5
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] Grade grade)
         {
@@ -75,7 +69,6 @@ namespace MagniClass.Controllers
             return NoContent();
         }
 
-        // DELETE api/<CourseController>/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
