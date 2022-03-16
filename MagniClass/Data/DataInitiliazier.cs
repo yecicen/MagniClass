@@ -60,12 +60,12 @@ namespace MagniClass.Data
 
                 var students = new List<Student>()
                 {
-                    new Student(){ Name= "Yunus", Birthday = DateTime.Parse("1994-11-16"), RegistrationNumber = "202094",  },
-                    new Student(){ Name= "Jack", Birthday = DateTime.Parse("1994-11-16"), RegistrationNumber = "202094",  },
-                    new Student(){ Name= "Amy", Birthday = DateTime.Parse("1994-11-16"), RegistrationNumber = "202094",  },
-                    new Student(){ Name= "Pedro", Birthday = DateTime.Parse("1994-11-16"), RegistrationNumber = "202094",  },
-                    new Student(){ Name= "Xiu", Birthday = DateTime.Parse("1994-11-16"), RegistrationNumber = "202094",  },
-                    new Student(){ Name= "Ruth", Birthday = DateTime.Parse("1994-11-16"), RegistrationNumber = "202094",  },
+                    new Student(){ Name= "Yunus", Birthday = DateTime.Parse("1994-11-16"), RegistrationNumber = "20224",  },
+                    new Student(){ Name= "Jack", Birthday = DateTime.Parse("1994-11-16"), RegistrationNumber = "20225",  },
+                    new Student(){ Name= "Amy", Birthday = DateTime.Parse("1994-11-16"), RegistrationNumber = "20226",  },
+                    new Student(){ Name= "Pedro", Birthday = DateTime.Parse("1994-11-16"), RegistrationNumber = "20227",  },
+                    new Student(){ Name= "Xiu", Birthday = DateTime.Parse("1994-11-16"), RegistrationNumber = "20228",  },
+                    new Student(){ Name= "Ruth", Birthday = DateTime.Parse("1994-11-16"), RegistrationNumber = "20229",  },
                 };
 
                 students.ForEach(s => context.Students.Add(s));
@@ -73,20 +73,20 @@ namespace MagniClass.Data
 
                 var subjectStudents = new List<SubjectStudents>()
                 {
-                    new SubjectStudents(){ SubjectId = 1, StudentId = 1},
-                    new SubjectStudents(){ SubjectId = 1, StudentId = 2},
-                    new SubjectStudents(){ SubjectId = 1, StudentId = 3},
                     new SubjectStudents(){ SubjectId = 1, StudentId = 4},
                     new SubjectStudents(){ SubjectId = 1, StudentId = 5},
                     new SubjectStudents(){ SubjectId = 1, StudentId = 6},
-                    new SubjectStudents(){ SubjectId = 2, StudentId = 1},
-                    new SubjectStudents(){ SubjectId = 2, StudentId = 2},
-                    new SubjectStudents(){ SubjectId = 2, StudentId = 3},
-                    new SubjectStudents(){ SubjectId = 3, StudentId = 4},
-                    new SubjectStudents(){ SubjectId = 3, StudentId = 5},
-                    new SubjectStudents(){ SubjectId = 3, StudentId = 6},
-                    new SubjectStudents(){ SubjectId = 4, StudentId = 1},
-                    new SubjectStudents(){ SubjectId = 4, StudentId = 2},
+                    new SubjectStudents(){ SubjectId = 1, StudentId = 7},
+                    new SubjectStudents(){ SubjectId = 1, StudentId = 8},
+                    new SubjectStudents(){ SubjectId = 1, StudentId = 9},
+                    new SubjectStudents(){ SubjectId = 2, StudentId = 4},
+                    new SubjectStudents(){ SubjectId = 2, StudentId = 5},
+                    new SubjectStudents(){ SubjectId = 2, StudentId = 6},
+                    new SubjectStudents(){ SubjectId = 3, StudentId = 7},
+                    new SubjectStudents(){ SubjectId = 3, StudentId = 8},
+                    new SubjectStudents(){ SubjectId = 3, StudentId = 9},
+                    new SubjectStudents(){ SubjectId = 4, StudentId = 4},
+                    new SubjectStudents(){ SubjectId = 4, StudentId = 5},
                 };
 
                 subjectStudents.ForEach(s => context.SubjectStudents.Add(s));
@@ -94,20 +94,20 @@ namespace MagniClass.Data
 
                 var grades = new List<Grade>()
                 {
-                    new Grade(){ SubjectID = 1, StudentID = 1, Score = 70.0},
-                    new Grade(){ SubjectID = 1, StudentID = 2, Score = 80.0},
-                    new Grade(){ SubjectID = 1, StudentID = 3, Score = 90.0},
-                    new Grade(){ SubjectID = 1, StudentID = 4, Score = 75.0},
-                    new Grade(){ SubjectID = 1, StudentID = 5, Score = 65.0},
-                    new Grade(){ SubjectID = 1, StudentID = 6, Score = 50.0},
-                    new Grade(){ SubjectID = 2, StudentID = 1, Score = 90.0},
-                    new Grade(){ SubjectID = 2, StudentID = 2, Score = 70.0},
-                    new Grade(){ SubjectID = 2, StudentID = 3, Score = 60.0},
-                    new Grade(){ SubjectID = 3, StudentID = 4, Score = 80.0},
-                    new Grade(){ SubjectID = 3, StudentID = 5, Score = 60.0},
-                    new Grade(){ SubjectID = 3, StudentID = 6, Score = 90.0},
-                    new Grade(){ SubjectID = 4, StudentID = 1, Score = 75.0},
-                    new Grade(){ SubjectID = 4, StudentID = 2, Score = 85.0},
+                    new Grade(){ SubjectID = 1, StudentID = 4, Score = 70.0},
+                    new Grade(){ SubjectID = 1, StudentID = 5, Score = 80.0},
+                    new Grade(){ SubjectID = 1, StudentID = 6, Score = 90.0},
+                    new Grade(){ SubjectID = 1, StudentID = 7, Score = 75.0},
+                    new Grade(){ SubjectID = 1, StudentID = 8, Score = 65.0},
+                    new Grade(){ SubjectID = 1, StudentID = 9, Score = 50.0},
+                    new Grade(){ SubjectID = 2, StudentID = 4, Score = 90.0},
+                    new Grade(){ SubjectID = 2, StudentID = 5, Score = 70.0},
+                    new Grade(){ SubjectID = 2, StudentID = 6, Score = 60.0},
+                    new Grade(){ SubjectID = 3, StudentID = 7, Score = 80.0},
+                    new Grade(){ SubjectID = 3, StudentID = 8, Score = 60.0},
+                    new Grade(){ SubjectID = 3, StudentID = 9, Score = 90.0},
+                    new Grade(){ SubjectID = 4, StudentID = 4, Score = 75.0},
+                    new Grade(){ SubjectID = 4, StudentID = 5, Score = 85.0},
                 };
 
                 grades.ForEach(s => context.Grades.Add(s));

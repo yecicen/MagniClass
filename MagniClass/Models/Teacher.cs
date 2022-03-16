@@ -2,7 +2,7 @@
 
 namespace MagniClass.Models
 {
-    public class Teacher: ApplicationUser
+    public class Teacher: Person
     {
         public double Salary { get; set; }
     }

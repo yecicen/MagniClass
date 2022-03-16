@@ -2,7 +2,7 @@
 
 namespace MagniClass.Models
 {
-    public class Student : ApplicationUser
+    public class Student : Person
     {
         public string RegistrationNumber { get; set; }
     }
