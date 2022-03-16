@@ -13,48 +13,48 @@ namespace MagniClass.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CourseController : ControllerBase
+    public class SubjectController : ControllerBase
     {
 
         private readonly ApplicationDbContext _context;
 
-        public CourseController(ApplicationDbContext context)
+        public SubjectController(ApplicationDbContext context)
         {
             _context = context;
         }
 
         // GET: api/<CourseController>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Course>>> GetAsync()
+        public async Task<ActionResult<IEnumerable<Subject>>> GetAsync()
         {
-            return await _context.Courses.ToListAsync();
+            return await _context.Subjects.ToListAsync();
         }
 
         // GET api/<CourseController>/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Course>> Get(int id )
+        public async Task<ActionResult<Subject>> Get(int id )
         {
-            return await _context.Courses.FindAsync(id);
+            return await _context.Subjects.FindAsync(id);
         }
 
         // POST api/<CourseController>
         [HttpPost]
-        public async void Post([FromBody] Course course)
+        public async void Post([FromBody] Subject subject)
         {
-            _context.Courses.Add(course);
+            _context.Subjects.Add(subject);
             await _context.SaveChangesAsync();
         }
 
         // PUT api/<CourseController>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] Course course)
+        public async Task<IActionResult> Put(int id, [FromBody] Subject subject)
         {
-            if (id != course.Id)
+            if (id != subject.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(course).State = EntityState.Modified;
+            _context.Entry(subject).State = EntityState.Modified;
 
             try
             {
@@ -62,7 +62,7 @@ namespace MagniClass.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (_context.Courses.FindAsync(id).Result == null)
+                if (_context.Subjects.FindAsync(id).Result == null)
                 {
                     return NotFound();
                 }
@@ -81,12 +81,12 @@ namespace MagniClass.Controllers
         {
             //TO-DO look for foreign keys
 
-            Course course = await _context.Courses.FindAsync(id);
-            if (course == null)
+            Subject subject = await _context.Subjects.FindAsync(id);
+            if (subject == null)
             {
                 return NotFound();
             }
-            _context.Courses.Remove(course);
+            _context.Subjects.Remove(subject);
             await _context.SaveChangesAsync();
 
             return new OkResult();
