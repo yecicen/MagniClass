@@ -54,6 +54,7 @@ namespace MagniClass.Controllers
                                   g => g.StudentID,
                                   (s, g) => new
                                   {
+                                      StudentId = s.Id,
                                       Grade = g.Score,
                                       StudentNumber = s.RegistrationNumber,
                                       SubjectId = g.SubjectID
@@ -67,7 +68,12 @@ namespace MagniClass.Controllers
 
             foreach (var item in data)
             {
-                studentList.Add(new StudentListVM() { Grade = item.Grade, StudentNumber = item.StudentNumber });
+                studentList.Add(new StudentListVM() {
+                    SubjectId = item.SubjectId,
+                    StudentId = item.StudentId,
+                    Grade = item.Grade, 
+                    StudentNumber = item.StudentNumber 
+                });
             }
             return studentList;
         }

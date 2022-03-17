@@ -52,8 +52,10 @@ namespace MagniClass.Controllers
                                           .AverageAsync((x => x.Grade));
                 subjectList.Add(
                     new SubjectListVM() { 
+                        SubjectId = item.Id,
+                        TeacherId = teacher.Id,
                         NumberOfStudents = studentCount,
-                        SubjectAvg = subjectAverage,
+                        SubjectAvg = Math.Round(subjectAverage, 2),
                         SubjectName = item.Name,
                         TeacherName = teacher.Name
                     });
@@ -105,6 +107,8 @@ namespace MagniClass.Controllers
                 subjectList.Add(
                     new SubjectListVM()
                     {
+                        SubjectId = item.SubjectId,
+                        TeacherId = teacher.Id,
                         NumberOfStudents = studentCount,
                         SubjectAvg = Math.Round(subjectAverage, 2),
                         SubjectName = item.SubjectName,

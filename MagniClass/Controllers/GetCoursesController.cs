@@ -60,6 +60,7 @@ namespace MagniClass.Controllers
                 }
                 courseList.Add(new CourseListVM()
                 {
+                    CourseId = course.Id,
                     CourseAvg = Math.Round(gradeSum / studentCountSum, 2),
                     Name = course.Name,
                     NumberOfStudents = studentCountSum,
