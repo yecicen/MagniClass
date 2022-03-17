@@ -12,10 +12,10 @@ export class StudentListComponent{
   public studentList : StudentListVM[];
   public subjectId : number;
   public subject : SubjectListVM;
-  public apiUrl: string;
+
   constructor(
-    http: HttpClient, 
-    @Inject('BASE_URL') baseUrl: string,
+    private readonly http: HttpClient,
+    @Inject('API_URL') private apiUrl: string,
     private route: ActivatedRoute,
     private router: Router
     ) {
@@ -24,20 +24,45 @@ export class StudentListComponent{
         this.subjectId = params.subjectId;
       }
     );
-    let studentListUrl = 'https://localhost:44327/api/GetStudentsBySubject/'
-    let SubjectUrl = 'https://localhost:44327/api/Subject/'
+    let studentListUrl = this.apiUrl + 'GetStudentsBySubject/';
     if (this.subjectId) {
       studentListUrl = studentListUrl + this.subjectId;
-      SubjectUrl = SubjectUrl + this.subjectId;
+      let SubjectUrl = this.apiUrl + 'Subject/' + this.subjectId;
+      http.get<SubjectListVM>(SubjectUrl).subscribe(result => {
+        this.subject = result;
+      }, error => console.error(error));
     }
-    http.get<SubjectListVM>(SubjectUrl).subscribe(result => {
-      this.subject = result;
-    }, error => console.error(error));
+
     http.get<StudentListVM[]>(studentListUrl).subscribe(result => {
       this.studentList = result;
     }, error => console.error(error));
   }
 
+  
+  createStudent() {
+    let route = '/subject';
+    this.router.navigate([route]);
+  }
+  addStudentToSubject(){
+
+  }
+  editStudent(model: StudentListVM) {
+    let route = '/student';
+    this.router.navigate([route], { queryParams: { id: model.studentId } });
+  }
+  editGrade(model: StudentListVM) {
+    let route = '/grade';
+    this.router.navigate([route], { queryParams: { id: model.gradeId } });
+  }
+
+  deleteStudent(model: StudentListVM) {
+    this.http.delete(this.apiUrl + 'Student/' + model.studentId).subscribe(result => {
+      console.log(result);
+      this.studentList = this.studentList.filter(x => x.studentId != model.studentId)
+    }, error => console.error(error));
+    let route = '/student-list';
+    this.router.navigate([route], { queryParams: { id: model.subjectId } });
+  }
 }
 interface StudentListVM {
   subjectId : number;
@@ -45,4 +70,5 @@ interface StudentListVM {
   studentId : number;
   studentNumber : string;
   grade : number;
+  gradeId : number;
 }

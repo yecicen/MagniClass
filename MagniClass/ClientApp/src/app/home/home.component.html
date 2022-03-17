@@ -1,5 +1,9 @@
 <p *ngIf="!courseList"><em>Loading...</em></p>
 
+<button (click)="createCourse()">
+  Create Course
+</button>
+
 <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="courseList">
   <thead>
     <tr>
@@ -7,14 +11,20 @@
       <th>Nr of Teachers</th>
       <th>Nr of Students</th>
       <th>Course Average</th>
+      <th>Edit</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let course of courseList" (click)="navigateCourse(course)">
+    <tr *ngFor="let course of courseList">
       <td>{{ course.name }}</td>
       <td>{{ course.numberOfTeachers }}</td>
       <td>{{ course.numberOfStudents }}</td>
       <td>{{ course.courseAvg }}</td>
+      <td>
+        <button (click)="editCourse(course)">Edit</button>
+        <button (click)="viewCourse(course)">View</button>
+        <button (click)="deleteCourse(course)">Delete</button>
+      </td>
     </tr>
   </tbody>
 </table>

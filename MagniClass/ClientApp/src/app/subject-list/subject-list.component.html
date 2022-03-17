@@ -1,9 +1,14 @@
 <h2 id="tableLabel">Subjects</h2>
 
-<p *ngIf="subject"><em>Subjects of {{subject.name}} course</em></p>
+<p *ngIf="course"><em>Subjects of {{course.name}} course</em></p>
 
 <p *ngIf="!subjectList"><em>Loading...</em></p>
-
+<button (click)="createSubject()">
+  Create Subject
+</button>
+<button *ngIf="course" (click)="addSubjectToCourse()">
+  Add Subject to Course
+</button>
 <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="subjectList">
   <thead>
     <tr>
@@ -11,14 +16,20 @@
       <th>Teacher Name</th>
       <th>Nr Of Students</th>
       <th>Average Grade</th>
+      <th> </th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let subject of subjectList" (click)="navigateSubject(subject)">
+    <tr *ngFor="let subject of subjectList">
       <td>{{ subject.subjectName }}</td>
       <td>{{ subject.teacherName }}</td>
       <td>{{ subject.numberOfStudents }}</td>
       <td>{{ subject.subjectAvg }}</td>
+      <td>
+        <button (click)="editSubject(subject)">Edit</button>
+        <button (click)="viewSubject(subject)">View</button>
+        <button (click)="deleteSubject(subject)">Delete</button>
+      </td>
     </tr>
   </tbody>
 </table>

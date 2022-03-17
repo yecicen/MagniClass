@@ -1,20 +1,31 @@
 <h2 id="tableLabel">Students</h2>
 
-<p *ngIf="subjectId"><em>Students of {{subject.name}} subject</em></p>
+<p *ngIf="subject"><em>Students of {{subject.name}} subject</em></p>
 
 <p *ngIf="!studentList"><em>Loading...</em></p>
-
+<button (click)="createStudent()">
+  Create Student
+</button>
+<button *ngIf="subject" (click)="addStudentToSubject()">
+  Add Student to Subject
+</button>
 <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="studentList">
     <thead>
       <tr>
         <th>Registration Number</th>
         <th>Grade</th>
+        <th> </th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let student of studentList" >
         <td>{{ student.studentNumber }}</td>
         <td>{{ student.grade }}</td>
+        <td>
+          <button (click)="editStudent(student)">Edit Student</button>
+          <button (click)="editGrade(student)">Edit Grade</button>
+          <button (click)="deleteStudent(student)">Delete</button>
+        </td>
       </tr>
     </tbody>
   </table>

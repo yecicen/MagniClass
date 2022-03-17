@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
@@ -13,6 +13,9 @@ import { ApiAuthorizationModule } from 'src/api-authorization/api-authorization.
 import { AuthorizeGuard } from 'src/api-authorization/authorize.guard';
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
 import { StudentListComponent } from './student-list/student-list.component';
+import { CourseComponent } from './course/course.component';
+import { SubjectComponent } from './subject/subject.component';
+import { StudentComponent } from './student/student.component';
 
 @NgModule({
   declarations: [
@@ -21,12 +24,17 @@ import { StudentListComponent } from './student-list/student-list.component';
     HomeComponent,
     CounterComponent,
     SubjectListComponent,
-    StudentListComponent
+    StudentListComponent,
+    CourseComponent,
+    SubjectComponent,
+    StudentComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
     ApiAuthorizationModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -34,6 +42,8 @@ import { StudentListComponent } from './student-list/student-list.component';
       // { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
       { path: 'subject-list', component: SubjectListComponent },
       { path: 'student-list', component: StudentListComponent },
+      { path: 'course', component: CourseComponent },
+      { path: 'subject', component: SubjectComponent },
     ])
   ],
   providers: [
