@@ -34,10 +34,11 @@ namespace MagniClass.Controllers
         }
 
         [HttpPost]
-        public async void Post([FromBody] Student student)
+        public async Task<ActionResult<IEnumerable<Student>>> Post([FromBody] Student student)
         {
             _context.Students.Add(student);
             await _context.SaveChangesAsync();
+            return Ok(student);
         }
 
         [HttpPut("{id}")]

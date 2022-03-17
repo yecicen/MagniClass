@@ -1,7 +1,9 @@
 ﻿using MagniClass.Data;
+using MagniClass.Hubs;
 using MagniClass.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
@@ -16,9 +18,12 @@ namespace MagniClass.Controllers
 
         private readonly ApplicationDbContext _context;
 
-        public CourseController(ApplicationDbContext context)
+        private readonly IHubContext<CourseHub> hubContext;
+
+        public CourseController(ApplicationDbContext context, IHubContext<CourseHub> _hubContext)
         {
             _context = context;
+            //hubContext = _hubContext; 
         }
 
         [HttpGet]
@@ -34,14 +39,16 @@ namespace MagniClass.Controllers
         }
 
         [HttpPost]
-        public async void Post([FromBody] Course course)
+        public async Task<ActionResult<Course>> Post([FromBody] Course course)
         {
             _context.Courses.Add(course);
             await _context.SaveChangesAsync();
+            //await hubContext.Clients.All.SendAsync("courseAdded", course);
+            return Ok(course);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] Course course)
+        public async Task<ActionResult<Course>> Put(int id, [FromBody] Course course)
         {
             if (id != course.Id)
             {
@@ -53,6 +60,8 @@ namespace MagniClass.Controllers
             try
             {
                 await _context.SaveChangesAsync();
+                //await hubContext.Clients.All.SendAsync("courseAdded", course);
+                return Ok(course);
             }
             catch (DbUpdateConcurrencyException)
             {

@@ -37,15 +37,16 @@ namespace MagniClass.Controllers
 
         // POST api/<CourseController>
         [HttpPost]
-        public async void Post([FromBody] Subject subject)
+        public async Task<ActionResult<Subject>> Post([FromBody] Subject subject)
         {
             _context.Subjects.Add(subject);
             await _context.SaveChangesAsync();
+            return Ok(subject);
         }
 
         // PUT api/<CourseController>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] Subject subject)
+        public async Task<ActionResult<Subject>> Put(int id, [FromBody] Subject subject)
         {
             if (id != subject.Id)
             {
@@ -57,6 +58,7 @@ namespace MagniClass.Controllers
             try
             {
                 await _context.SaveChangesAsync();
+                return Ok(subject);
             }
             catch (DbUpdateConcurrencyException)
             {

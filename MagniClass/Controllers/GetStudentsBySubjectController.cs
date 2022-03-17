@@ -32,6 +32,7 @@ namespace MagniClass.Controllers
                                   g => g.StudentID,
                                   (s, g) => new
                                   {
+                                      StudentId = s.Id,
                                       Grade = g.Score,
                                       StudentNumber = s.RegistrationNumber,
                                       SubjectId = g.SubjectID

@@ -34,14 +34,15 @@ namespace MagniClass.Controllers
         }
 
         [HttpPost]
-        public async void Post([FromBody] Grade grade)
+        public async Task<ActionResult<Grade>> Post([FromBody] Grade grade)
         {
             _context.Grades.Add(grade);
             await _context.SaveChangesAsync();
+            return Ok(grade);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] Grade grade)
+        public async Task<ActionResult<Grade>> Put(int id, [FromBody] Grade grade)
         {
             if (id != grade.Id)
             {
@@ -53,6 +54,7 @@ namespace MagniClass.Controllers
             try
             {
                 await _context.SaveChangesAsync();
+                return Ok(grade);
             }
             catch (DbUpdateConcurrencyException)
             {
