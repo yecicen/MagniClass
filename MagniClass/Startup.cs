@@ -1,4 +1,5 @@
 using MagniClass.Data;
+using MagniClass.Hubs;
 using MagniClass.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
@@ -43,6 +44,12 @@ namespace MagniClass
             services.AddControllersWithViews();
             services.AddControllers().AddNewtonsoftJson();
             services.AddRazorPages();
+
+            services.AddSignalR().AddJsonProtocol(options =>
+            {
+                options.PayloadSerializerOptions.PropertyNamingPolicy = System.Text.Json.JsonNamingPolicy.CamelCase;
+            });
+
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
@@ -84,6 +91,7 @@ namespace MagniClass
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
+                //endpoints.MapHub<CourseHub>("/course");
             });
 
             app.UseSpa(spa =>
