@@ -21,21 +21,18 @@ namespace MagniClass.Controllers
             _context = context;
         }
 
-        // GET: api/<CourseController>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Subject>>> GetAsync()
         {
             return await _context.Subjects.ToListAsync();
         }
 
-        // GET api/<CourseController>/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Subject>> Get(int id )
         {
             return await _context.Subjects.FindAsync(id);
         }
 
-        // POST api/<CourseController>
         [HttpPost]
         public async Task<ActionResult<Subject>> Post([FromBody] Subject subject)
         {
@@ -44,7 +41,6 @@ namespace MagniClass.Controllers
             return Ok(subject);
         }
 
-        // PUT api/<CourseController>/5
         [HttpPut("{id}")]
         public async Task<ActionResult<Subject>> Put(int id, [FromBody] Subject subject)
         {
@@ -75,7 +71,6 @@ namespace MagniClass.Controllers
             return NoContent();
         }
 
-        // DELETE api/<CourseController>/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {

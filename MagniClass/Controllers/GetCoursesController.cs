@@ -34,6 +34,7 @@ namespace MagniClass.Controllers
             {
                 double gradeSum = 0;
                 int studentCountSum = 0;
+                double courseAvg = 0;
                 var subjects = await _context.Courses
                                 .Join(_context.CoursesSubjects,
                                   c => c.Id,
@@ -58,10 +59,14 @@ namespace MagniClass.Controllers
                     gradeSum += subjectGrades.Sum(x => x.Grade);
                     studentCountSum += subjectGrades.Count;
                 }
+                if(studentCountSum > 0)
+                {
+                    courseAvg = Math.Round(gradeSum / studentCountSum, 2);
+                }
                 courseList.Add(new CourseListVM()
                 {
                     CourseId = course.Id,
-                    CourseAvg = Math.Round(gradeSum / studentCountSum, 2),
+                    CourseAvg = courseAvg,
                     Name = course.Name,
                     NumberOfStudents = studentCountSum,
                     NumberOfTeachers = subjects.Count
