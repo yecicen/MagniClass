@@ -32,6 +32,7 @@ namespace MagniClass.Controllers
                                   g => g.StudentID,
                                   (s, g) => new
                                   {
+                                      GradeId = g.Id,
                                       StudentId = s.Id,
                                       Grade = g.Score,
                                       StudentNumber = s.RegistrationNumber,
@@ -40,7 +41,15 @@ namespace MagniClass.Controllers
                                 .ToListAsync();
             foreach (var item in data)
             {
-                studentList.Add(new StudentListVM() { Grade = item.Grade, StudentNumber = item.StudentNumber });
+                studentList.Add(new StudentListVM()
+                {
+                    SubjectId = item.SubjectId,
+                    StudentId = item.StudentId,
+                    Grade = item.Grade,
+                    StudentNumber = item.StudentNumber,
+                    GradeId = item.GradeId
+
+                });
             }
             return studentList;
         }
@@ -55,6 +64,7 @@ namespace MagniClass.Controllers
                                   g => g.StudentID,
                                   (s, g) => new
                                   {
+                                      GradeId = g.Id,
                                       StudentId = s.Id,
                                       Grade = g.Score,
                                       StudentNumber = s.RegistrationNumber,
@@ -73,7 +83,9 @@ namespace MagniClass.Controllers
                     SubjectId = item.SubjectId,
                     StudentId = item.StudentId,
                     Grade = item.Grade, 
-                    StudentNumber = item.StudentNumber 
+                    StudentNumber = item.StudentNumber ,
+                    GradeId = item.GradeId
+                    
                 });
             }
             return studentList;

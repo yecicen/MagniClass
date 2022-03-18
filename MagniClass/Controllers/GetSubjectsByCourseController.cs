@@ -26,12 +26,14 @@ namespace MagniClass.Controllers
         public async Task<ActionResult<IEnumerable<SubjectListVM>>> GetAsync()
         {
             List<SubjectListVM> subjectList = new List<SubjectListVM>();
-
+            int studentCount = 0;
+            Teacher teacher = new Teacher();
+            double subjectAverage = 0;
             var data = await _context.Subjects.ToListAsync();
             foreach (var item in data)
             {
-                Teacher teacher = await _context.Teachers.FindAsync(item.TeacherID);
-                int studentCount = await _context.Students
+                teacher = await _context.Teachers.FindAsync(item.TeacherID);
+                studentCount = await _context.Students
                                     .Join(_context.SubjectStudents,
                                       s => s.Id,
                                       c => c.StudentId,
@@ -40,7 +42,7 @@ namespace MagniClass.Controllers
                                           SubjectId = c.SubjectId
                                       }).Where(x => x.SubjectId.Equals(item.Id)).CountAsync();
 
-                double subjectAverage =  await _context.Students
+                subjectAverage =  await _context.Students
                                         .Join(_context.Grades,
                                           s => s.Id,
                                           c => c.StudentID,
