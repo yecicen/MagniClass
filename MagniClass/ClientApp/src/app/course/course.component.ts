@@ -5,6 +5,8 @@ import { CourseService } from './course.service';
 import { of } from 'rxjs';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CourseSubject } from '../models/courseSubject';
+import { Subject } from '../models/subject';
 
 @Component({
   selector: 'app-course',
@@ -18,7 +20,9 @@ export class CourseComponent implements OnInit {
   loading = false;
   submitted = false;
   course: Course;
-
+  courseSubjects: CourseSubject[];
+  subjects: Subject[];
+  selectedSubjects: Subject[];
   constructor(
     @Inject('API_URL') private apiUrl: string,
     private formBuilder: FormBuilder,
@@ -27,6 +31,14 @@ export class CourseComponent implements OnInit {
     private readonly courseService: CourseService,
     private readonly http: HttpClient
   ) {
+    // this.http.get<Subject[]>(this.apiUrl + 'Subject')
+    //   .subscribe(result => {
+    //     this.form.patchValue({
+    //       subjects: result
+    //     });
+    //     this.subjects = result;
+    //   });
+
     // of(courseService.courseAdded).subscribe( (course) => { this.courses.push(course);});
     // of(courseService.courseUpdated).subscribe( (course) => { 
     //   this.courses =  this.courses.filter(x => x.id !== (course as any).id);
@@ -43,11 +55,12 @@ export class CourseComponent implements OnInit {
 
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
+      // subjects: [[], Validators.required],
     });
 
     if (!this.isAddMode) {
-      this.http.get<Course>(this.apiUrl+'Course/' + this.id)
-        .subscribe(result => { 
+      this.http.get<Course>(this.apiUrl + 'Course/' + this.id)
+        .subscribe(result => {
           this.form.patchValue(result);
           this.course = result;
         });
@@ -56,8 +69,6 @@ export class CourseComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
-
     // stop here if form is invalid
     if (this.form.invalid) {
       return;
@@ -74,34 +85,40 @@ export class CourseComponent implements OnInit {
 
   private createCourse() {
     const toSend = { name: this.form.value.name };
-    this.http.post(this.apiUrl+'Course', toSend)
-      .subscribe( {
+    this.http.post(this.apiUrl + 'Course', toSend)
+      .subscribe({
         next: () => {
+          //think about rollback
+          // this.http.post(this.apiUrl + 'AddSubjectsToCourse',this.selectedSubjects).subscribe({
+          //   next: () => {
+          //     this.router.navigate(['../'], { relativeTo: this.route });
+          //   }
+          // })
           this.router.navigate(['../'], { relativeTo: this.route });
         },
-          error: error => {
-            console.log(error);
-            this.loading = false;
-          }
+        error: error => {
+          console.log(error);
+          this.loading = false;
+        }
       });
     this.form.reset();
   }
 
   private updateCourse() {
-    if(this.form.value.name === undefined) {return}
+    if (this.form.value.name === undefined) { return }
     this.course.name = this.form.value.name;
     const toSend = { name: this.form.value.name };
-    this.http.put(this.apiUrl+'Course/'+this.id, this.course)
-      .subscribe( {
+    this.http.put(this.apiUrl + 'Course/' + this.id, this.course)
+      .subscribe({
         next: () => {
           this.router.navigate(['../'], { relativeTo: this.route });
         },
-          error: error => {
-            console.log(error);
-            this.loading = false;
-          }
+        error: error => {
+          console.log(error);
+          this.loading = false;
+        }
       });
     this.form.reset();
-}
+  }
 
 }

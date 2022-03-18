@@ -14,3 +14,13 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+button {
+  margin : 0 10px;
+  border-radius: 10px;
+  border: none;
+  background-color: transparent;
+}
+button:hover{
+  background-color: lightgrey;
+}

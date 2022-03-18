@@ -7,6 +7,16 @@
             <input type="text" formControlName="name" class="form-control" />
         </div>
     </div>
+    <!-- <div class="form-row">
+        <div class="form-group col-5">
+            <label>Subjects</label>
+            <select id="teacherSelectList" formControlName="subjects" class="form-control" >
+                <option *ngFor="let subject of subjects" [(ngValue)]="selectedSubjects">
+                  {{subject.name}}
+                </option>
+              </select>
+        </div>
+    </div> -->
 
     <div class="form-group">
         <button [disabled]="loading" class="btn btn-primary">
