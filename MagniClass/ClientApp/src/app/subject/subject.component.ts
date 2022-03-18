@@ -24,7 +24,7 @@ export class SubjectComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private readonly http: HttpClient
-  ) { 
+  ) {
     this.http.get<Teacher[]>(apiUrl + 'Teacher').subscribe(result => {
       this.teacherList = result;
     }, error => console.error(error));
@@ -35,17 +35,20 @@ export class SubjectComponent implements OnInit {
         this.id = params.id;
       });
     this.isAddMode = !this.id;
-    
+
     if (!this.isAddMode) {
-      this.http.get<Subject>(this.apiUrl+'Subject/' + this.id)
+      this.http.get<Subject>(this.apiUrl + 'Subject/' + this.id)
         .subscribe(result => {
-          this.form.patchValue(result);
+          this.form.patchValue({
+            name:result.name, 
+            teacherId:result.teacherId
+          });
           this.subject = result;
         });
     }
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
-      teacherId: [this.subject ? this.subject.teacherId : 1, Validators.required],
+      teacherId: ['', Validators.required],
     });
   }
 
@@ -56,42 +59,42 @@ export class SubjectComponent implements OnInit {
     }
     this.loading = true;
     if (this.isAddMode) {
-      this.createSuject();
+      this.createSubject();
     } else {
       this.updateSubject();
     }
   }
 
-  private createSuject() {
-    const toSend = { name: this.form.value.name, teacherId:this.form.value.teacherId };
-    this.http.post(this.apiUrl+'Subject', toSend)
-      .subscribe( {
+  private createSubject() {
+    const toSend = { name: this.form.value.name, teacherId: this.form.value.teacherId };
+    this.http.post(this.apiUrl + 'Subject', toSend)
+      .subscribe({
         next: () => {
           this.router.navigate(['../'], { relativeTo: this.route });
         },
-          error: error => {
-            console.log(error);
-            this.loading = false;
-          }
+        error: error => {
+          console.log(error);
+          this.loading = false;
+        }
       });
     this.form.reset();
   }
 
   private updateSubject() {
-    if(this.form.value.name === undefined) {return}
+    if (this.form.value.name === undefined) { return }
     this.subject.name = this.form.value.name;
     this.subject.teacherId = this.form.value.teacherId;
-    this.http.put(this.apiUrl+'Subject/'+this.id, this.subject)
-      .subscribe( {
+    this.http.put(this.apiUrl + 'Subject/' + this.id, this.subject)
+      .subscribe({
         next: () => {
           this.router.navigate(['../'], { relativeTo: this.route });
         },
-          error: error => {
-            console.log(error);
-            this.loading = false;
-          }
+        error: error => {
+          console.log(error);
+          this.loading = false;
+        }
       });
     this.form.reset();
-}
+  }
 
 }

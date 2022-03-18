@@ -14,14 +14,14 @@
       <tr>
         <th>Registration Number</th>
         <th>Grade</th>
-        <th> </th>
+        <th *ngIf="subject"> </th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let student of studentList" >
         <td>{{ student.studentNumber }}</td>
         <td>{{ student.grade }}</td>
-        <td>
+        <td *ngIf="subject">
           <button (click)="editStudent(student)">Edit Student</button>
           <button (click)="editGrade(student)">Edit Grade</button>
           <button (click)="deleteStudent(student)">Delete</button>
